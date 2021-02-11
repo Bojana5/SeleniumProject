@@ -14,49 +14,45 @@ public class LogInTests extends TestBase{
 	}
 	
 	@Test (priority = 0)
-	public void login() throws InterruptedException {
-		String email = excelReader.getData("LogIn", 5, 6);
-		String password = excelReader.getData("LogIn", 6, 6);
-		signIn(email, password);
-		
+	public void loginValidCredentials() throws InterruptedException {
+		super.login();
 		Assert.assertEquals(true, myAccountPage.getSignOutBtn().isDisplayed());
 	}
 	
 	@Test (priority = 5)
 	public void loginInvalidEmail() throws InterruptedException {
 		String email = excelReader.getData("LogIn", 12, 6);
-		String password = excelReader.getData("LogIn", 14, 6);
+		String password = excelReader.getData("LogIn", 13, 6);
 		signIn(email, password);
 		
-		excelReader.assertText("LogIn", 16, 7, loginPage.getErrorText().getText());
+		super.assertText("LogIn", 14, 9, loginPage.getErrorText().getText());
 	}
 	
 	@Test (priority = 10)
 	public void loginInvalidPassword() throws InterruptedException {
-		String email = excelReader.getData("LogIn", 22, 6);
-		String password = excelReader.getData("LogIn", 24, 6);
+		String email = excelReader.getData("LogIn", 19, 6);
+		String password = excelReader.getData("LogIn", 20, 6);
 		signIn(email, password);
 		
-		excelReader.assertText("LogIn", 26, 7, loginPage.getErrorText().getText());
+		super.assertText("LogIn", 21, 9, loginPage.getErrorText().getText());
 	}
 	
 	@Test (priority = 15)
 	public void loginInvalidCredentials() throws InterruptedException {
-		String email = excelReader.getData("LogIn", 31, 6);
-		String password = excelReader.getData("LogIn", 33, 6);
+		String email = excelReader.getData("LogIn", 26, 6);
+		String password = excelReader.getData("LogIn", 27, 6);
 		signIn(email, password);
 		
-		excelReader.assertText("LogIn", 35, 7, loginPage.getErrorText().getText());
+		super.assertText("LogIn", 28, 9, loginPage.getErrorText().getText());
 	}
 	
 	@Test (priority = 15)
-	public void loginEmptyCredentials() throws InterruptedException {
-		myStorePage.signInBtnClick();
-		Thread.sleep(2000);
-		loginPage.signInBtnClick();
-		Thread.sleep(2000);
+	public void loginEmptyCredentials() throws InterruptedException {		
+		String email = excelReader.getData("LogIn", 33, 6);
+		String password = excelReader.getData("LogIn", 34, 6);
+		signIn(email, password);
 		
-		excelReader.assertText("LogIn", 44, 7, loginPage.getErrorText().getText());
+		super.assertText("LogIn", 35, 9, loginPage.getErrorText().getText());
 	}
 	
 	@AfterMethod
@@ -67,7 +63,6 @@ public class LogInTests extends TestBase{
 	}
 	
 	public void signIn(String email, String password) throws InterruptedException {
-		
 		myStorePage.signInBtnClick();
 		Thread.sleep(2000);
 		loginPage.insertEmail(email);
@@ -75,7 +70,6 @@ public class LogInTests extends TestBase{
 		loginPage.insertPassword(password);
 		Thread.sleep(2000);
 		loginPage.signInBtnClick();
-		Thread.sleep(2000);
-		
+		Thread.sleep(2000);	
 	}
 }

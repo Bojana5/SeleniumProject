@@ -36,14 +36,4 @@ public class ExcelReader {
 		}
 		return value;
 	}
-	
-	public void assertText(String sheetName, int columne, int row, String textFromSite) {
-		String textFromTable = getData(sheetName, columne, row); 
-		Assert.assertEquals(textFromTable, textFromSite);
-		System.out.println("Successful assertion.");
-		
-		//test
-		//excelReader.assertion("sheetname", 2-col, 1-row, page.getText...().getText());
-	}
-	
 }
