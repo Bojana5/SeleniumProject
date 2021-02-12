@@ -47,7 +47,7 @@ public class TestBase {
 		driver.manage().window().maximize();
 	}
 	
-//	@AfterClass
+	@AfterClass
 	public void afterClass() throws IOException {
 		driver.close();
 		excelReader.fis.close();

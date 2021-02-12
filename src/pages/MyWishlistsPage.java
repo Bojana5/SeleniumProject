@@ -13,6 +13,7 @@ public class MyWishlistsPage {
 	WebElement wishlistTable;
 	WebElement removeIcon;
 	List<WebElement> wishlistTableRows;	
+	List<WebElement> wishlistDeleteBtn;	
 
 	public MyWishlistsPage(WebDriver driver) {
 		this.driver = driver;
@@ -34,6 +35,11 @@ public class MyWishlistsPage {
 		List<WebElement> allWishlists = driver.findElements(By.cssSelector("tr[id^='wishlist']"));
 		return allWishlists;
 	}
+	
+	public List<WebElement> getWishlistDeleteBtn() {
+		return driver.findElements(By.className("icon-remove"));
+	}
+
 	public void insertWishlistName(String name) {
 		this.getwishlistNameInputField().clear();
 		this.getwishlistNameInputField().sendKeys(name);
@@ -45,11 +51,6 @@ public class MyWishlistsPage {
 	
 	public void saveBtnClick() {
 		this.getSaveBtn().click();
-	}
-	
-	public WebElement element(int i) {
-		WebElement element = getWishlistTableRows().get(i).findElement(By.className("icon-remove"));
-		return element;
 	}
 	
 	public boolean isElementPresent() {

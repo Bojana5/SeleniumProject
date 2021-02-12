@@ -1,5 +1,8 @@
 package tests;
 
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -12,7 +15,7 @@ public class WishlistsTests extends TestBase{
 		Thread.sleep(2000);
 	}
 	
-//	@Test(priority = 0)
+	@Test(priority = 0)
 	public void addWishlist() throws InterruptedException {
 		String wishlistName = excelReader.getData("Wishlist", 5, 6);
 		navigateToMyWishlists();
@@ -47,9 +50,12 @@ public class WishlistsTests extends TestBase{
 			Thread.sleep(2000);
 		}
 		
-		for (int i = 0; i < myWishlistsPage.getWishlistTableRows().size(); i++) {
-			myWishlistsPage.element(i).click();
+		
+		List<WebElement> deleteWishlist = myWishlistsPage.getWishlistDeleteBtn();
+		for (int i = 0; i < deleteWishlist.size(); i++) {
+			deleteWishlist.get(i).click();
 			super.alertMessagesAccept();
+			Thread.sleep(2000);
 		}
 		
 		driver.navigate().refresh();
