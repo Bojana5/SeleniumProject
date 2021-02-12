@@ -12,50 +12,68 @@ public class WishlistsTests extends TestBase{
 		Thread.sleep(2000);
 	}
 	
-	@Test(priority = 0)
+//	@Test(priority = 0)
 	public void addWishlist() throws InterruptedException {
-//		String name = excelReader.getData("", , );
-		super.login();
-		Thread.sleep(2000);
-		addWishlist("lista1");
+		String wishlistName = excelReader.getData("Wishlist", 5, 6);
+		navigateToMyWishlists();
+		addWishlist(wishlistName);
 		
-		Assert.assertEquals(true, myWishlistsPage.getWishlistTable().isDisplayed());
+		Assert.assertEquals(myWishlistsPage.getWishlistTable().isDisplayed(), true);
 	}
 	
-	@Test(priority = 15)
-	public void deleteWishlist() throws InterruptedException {
-//		String name = excelReader.getData("", , );
-		super.login();
-		Thread.sleep(2000);
-		myAccountPage.myWishlistsClick();
-		Thread.sleep(2000);
+	@Test(priority = 5)
+	public void addTwoWishlists() throws InterruptedException {
+		String wishlistName1 = excelReader.getData("Wishlist", 6, 6);
+		String wishlistName2 = excelReader.getData("Wishlist", 7, 6);
+		navigateToMyWishlists();
 		
-		if (myWishlistsPage.getWishlistTable().isDisplayed() == false) {
-			driver.manage().deleteAllCookies();
+		int numberOfWishlists = myWishlistsPage.getWishlistTableRows().size();
+		
+		addWishlist(wishlistName1);
+		addWishlist(wishlistName2);
+		
+		Assert.assertEquals(myWishlistsPage.getWishlistTable().isDisplayed(), true);
+		Assert.assertEquals(myWishlistsPage.getWishlistTableRows().size(), (numberOfWishlists + 2));
+	}
+	
+	@Test(priority = 10)
+	public void deleteWishlists() throws InterruptedException {
+		navigateToMyWishlists();
+		
+		if (myWishlistsPage.isElementPresent() == false) {
+			myAccountPage.signOutBtnClick();
+			Thread.sleep(2000);
 			addWishlist();
 			Thread.sleep(2000);
 		}
-		myWishlistsPage.removeIconClick();
-		Thread.sleep(2000);
 		
-		Assert.assertEquals(false, myWishlistsPage.getWishlistTable().isDisplayed());
+		for (int i = 0; i < myWishlistsPage.getWishlistTableRows().size(); i++) {
+			myWishlistsPage.element(i).click();
+			super.alertMessagesAccept();
+		}
+		
+		driver.navigate().refresh();
+		Thread.sleep(2000);
+		Assert.assertEquals(myWishlistsPage.isElementPresent(), false);
 	}
 	
-//	@AfterMethod
+	@AfterMethod
 	public void afterTest() throws InterruptedException {
 		driver.manage().deleteAllCookies();
 		driver.navigate().refresh();
 		Thread.sleep(2000);
 	}
 	
-	public void addWishlist(String name) throws InterruptedException {
+	public void navigateToMyWishlists() throws InterruptedException {
+		super.login();
+		Thread.sleep(2000);
 		myAccountPage.myWishlistsClick();
 		Thread.sleep(2000);
+	}
+	public void addWishlist(String name) throws InterruptedException {
 		myWishlistsPage.insertWishlistName(name);
 		Thread.sleep(2000);
 		myWishlistsPage.saveBtnClick();
-		Thread.sleep(2000);
-		
+		Thread.sleep(2000);	
 	}
-
 }

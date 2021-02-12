@@ -37,7 +37,6 @@ public class PersonalInfoPage {
 	public WebElement getAccountNameText() {
 		return driver.findElement(By.className("account"));
 	}
-
 	public WebElement getBackBtn() {
 		return driver.findElement(By.xpath("//*[@id=\"center_column\"]/ul/li[1]/a"));
 	}
@@ -46,21 +45,17 @@ public class PersonalInfoPage {
 		this.getFirstNameInputField().clear();
 		this.getFirstNameInputField().sendKeys(firstName);
 	}
-	
 	public void insertLastName(String lastName) {
 		this.getLastNameInputField().clear();
 		this.getLastNameInputField().sendKeys(lastName);
 	}
-	
 	public void insertCurrentPassword(String password) {
 		this.getCurrentPasswordInputField().clear();
 		this.getCurrentPasswordInputField().sendKeys(password);
 	}
-	
 	public void saveBtnClick() {
 		this.getSaveBtn().click();
 	}
-	
 	public void backBtnClick() {
 		this.getBackBtn().click();
 	}

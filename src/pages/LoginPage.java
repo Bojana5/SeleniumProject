@@ -18,15 +18,12 @@ public class LoginPage {
 	public WebElement getEmailInputField() {
 		return driver.findElement(By.id("email"));
 	}
-
 	public WebElement getPasswordInputField() {
 		return driver.findElement(By.id("passwd"));
 	}
-
 	public WebElement getSignInBtn() {
 		return driver.findElement(By.id("SubmitLogin"));
 	}
-	
 	public WebElement getErrorText() {
 		return driver.findElement(By.xpath("//*[@id=\"center_column\"]/div[1]/ol/li"));
 	}
@@ -35,14 +32,11 @@ public class LoginPage {
 		this.getEmailInputField().clear();
 		this.getEmailInputField().sendKeys(email);
 	}
-	
 	public void insertPassword(String password) {
 		this.getPasswordInputField().clear();
 		this.getPasswordInputField().sendKeys(password);
 	}
-	
 	public void signInBtnClick() {
 		this.getSignInBtn().click();
 	}
-
 }

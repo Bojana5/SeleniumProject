@@ -1,6 +1,8 @@
 package tests;
 
 import java.io.IOException;
+
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -56,7 +58,6 @@ public class TestBase {
 		Assert.assertEquals(textFromSite, textFromTable);
 		System.out.println("Successful assert.");
 	}
-	
 	public void login() throws InterruptedException {
 		String email = excelReader.getData("LogIn", 5, 6);
 		String password = excelReader.getData("LogIn", 6, 6);
@@ -68,5 +69,9 @@ public class TestBase {
 		Thread.sleep(2000);
 		loginPage.signInBtnClick();
 		Thread.sleep(2000);
+	}
+	public void alertMessagesAccept() {
+		Alert alert = driver.switchTo().alert();
+		alert.accept();
 	}
 }

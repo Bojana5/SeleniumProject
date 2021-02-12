@@ -11,7 +11,6 @@ public class MyStorePage {
 	public MyStorePage(WebDriver driver) {
 		this.driver = driver;
 	}
-
 	public WebElement getSignInBtn() {
 		return driver.findElement(By.className("login"));
 	}

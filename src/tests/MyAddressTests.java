@@ -6,7 +6,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class MyAddressTests extends TestBase{
-	
 	@BeforeMethod
 	public void setup() throws InterruptedException {
 		driver.navigate().to("http://automationpractice.com/index.php");
@@ -15,28 +14,23 @@ public class MyAddressTests extends TestBase{
 	
 	@Test (priority = 0)
 	public void updateAddress() throws InterruptedException {
-		String address = excelReader.getData("Update addresses", 6, 7);
-		navigateToMyAddress();
-		
-/*		if (myAddressPage.getAddresses().size() == 0) {
-			this.addAddress();
-		}
-*/		
+		String address = excelReader.getData("MyAddresses", 6, 7);
+		navigateToMyAddress();	
 		update(address);
-		super.assertText("Update addresses", 6, 7, myAddressPage.getAddressText().getText());
+		
+		super.assertText("MyAddresses", 6, 7, myAddressPage.getAddressText().getText());
 		
 		revertInitialValues();
-		super.assertText("Update addresses", 7, 4, myAddressPage.getAddressText().getText());
+		super.assertText("MyAddresses", 7, 4, myAddressPage.getAddressText().getText());
 	}
 	
 	@Test (priority = 5)
 	public void addAddress() throws InterruptedException {
-		String address = excelReader.getData("Update addresses", 19, 7);
-		String city = excelReader.getData("Update addresses", 20, 7);
-		String zip = excelReader.getData("Update addresses", 22, 7);
-		String phone = excelReader.getData("Update addresses", 23, 7);
-		String alias = excelReader.getData("Update addresses", 24, 7);
-		
+		String address = excelReader.getData("MyAddresses", 19, 7);
+		String city = excelReader.getData("MyAddresses", 20, 7);
+		String zip = excelReader.getData("MyAddresses", 22, 7);
+		String phone = excelReader.getData("MyAddresses", 23, 7);
+		String alias = excelReader.getData("MyAddresses", 24, 7);
 		navigateToMyAddress();
 		
 		int numberOfAddresses = myAddressPage.getAddresses().size();
@@ -62,27 +56,20 @@ public class MyAddressTests extends TestBase{
 		Assert.assertEquals(myAddressPage.getAddresses().size(), (numberOfAddresses + 1));
 		
 		int indexOfAddresse = myAddressPage.getAddresses().size() - 1;
-		super.assertText("Update addresses", 24, 7, myAddressPage.lastElementText(indexOfAddresse).getText());
+		super.assertText("MyAddresses", 24, 7, myAddressPage.lastElementText(indexOfAddresse).getText());
 	}
 	
 	@Test (priority = 10)
 	public void deleteAddress() throws InterruptedException {
 		navigateToMyAddress();
 		int numberOfAddresses = myAddressPage.getAddresses().size();
-		
-/*		if (myAddressPage.getAddresses().size() == 0) {
-			this.addAddress();
-		}
-*/		
 		myAddressPage.deleteBtnClick();
 		Thread.sleep(2000);
-		myAddressPage.alertMessages();
+		super.alertMessagesAccept();
 		Thread.sleep(2000);
 		
 		Assert.assertEquals(myAddressPage.getAddresses().size(), (numberOfAddresses - 1));
 	}
-	
-	
 	
 	@AfterMethod
 	public void afterTest() throws InterruptedException {
@@ -98,12 +85,10 @@ public class MyAddressTests extends TestBase{
 		Thread.sleep(2000);
 		yourAddressesPage.saveBtnClick();
 	}
-	
 	public void revertInitialValues() throws InterruptedException {
-		String address = excelReader.getData("Update addresses", 7, 4);
+		String address = excelReader.getData("MyAddresses", 7, 4);
 		update(address);	
 	}
-	
 	public void navigateToMyAddress() throws InterruptedException {
 		super.login();
 		Thread.sleep(2000);
